@@ -4,22 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UniTheVerse | Custom Rigging & Animation</title>
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     
     <style>
-        /* --- CSS VARIABLES & THEME --- */
         :root {
             --bg-dark: #050507;
-            --bg-card: rgba(20, 20, 25, 0.6);
+            --bg-card: rgba(20, 20, 25, 0.7);
             --accent-purple: #a855f7;
             --accent-blue: #3b82f6;
             --text-main: #e2e8f0;
             --text-dim: #94a3b8;
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --neon-glow: 0 0 15px rgba(168, 85, 247, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --neon-glow: 0 0 20px rgba(168, 85, 247, 0.3);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -32,81 +30,149 @@
             overflow-x: hidden;
         }
 
+        /* Animated Nebula Background */
         body::before {
             content: "";
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background: 
-                radial-gradient(circle at 20% 30%, rgba(168, 85, 247, 0.05) 0%, transparent 40%),
-                radial-gradient(circle at 80% 70%, rgba(59, 130, 246, 0.05) 0%, transparent 40%);
+                radial-gradient(circle at 10% 20%, rgba(168, 85, 247, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(59, 130, 246, 0.08) 0%, transparent 40%);
             z-index: -1;
         }
 
         .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
-        section { padding: 80px 0; }
-
+        
         header {
             position: fixed;
             top: 0; width: 100%;
-            background: rgba(5, 5, 7, 0.8);
-            backdrop-filter: blur(12px);
+            background: rgba(5, 5, 7, 0.85);
+            backdrop-filter: blur(15px);
             z-index: 1000;
             border-bottom: 1px solid var(--glass-border);
         }
 
-        nav { display: flex; justify-content: space-between; align-items: center; height: 70px; }
+        nav { display: flex; justify-content: space-between; align-items: center; height: 75px; }
         .logo {
-            font-weight: 800; font-size: 1.2rem; letter-spacing: -0.5px;
+            font-weight: 800; font-size: 1.3rem; letter-spacing: -0.5px;
             background: linear-gradient(to right, var(--accent-purple), var(--accent-blue));
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
 
-        .nav-links { display: flex; gap: 2rem; align-items: center; }
+        .nav-links { display: flex; gap: 2.5rem; align-items: center; }
         .nav-links a { text-decoration: none; color: var(--text-dim); font-weight: 500; font-size: 0.9rem; transition: 0.3s; }
         .nav-links a:hover { color: var(--accent-purple); }
 
         .badge {
-            background: rgba(168, 85, 247, 0.15); color: var(--accent-purple);
-            padding: 6px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 700;
+            background: rgba(168, 85, 247, 0.1); color: var(--accent-purple);
+            padding: 8px 16px; border-radius: 30px; font-size: 0.7rem; font-weight: 800;
             border: 1px solid var(--accent-purple); box-shadow: var(--neon-glow);
-            text-transform: uppercase; letter-spacing: 1px;
+            text-transform: uppercase; letter-spacing: 1.5px;
         }
 
-        .hero { min-height: 90vh; display: flex; align-items: center; padding-top: 100px; }
-        .hero-content { display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; align-items: center; }
-        .hero-text h1 { font-size: 3.5rem; line-height: 1.1; margin-bottom: 1.5rem; font-weight: 800; }
+        .hero { min-height: 85vh; display: flex; align-items: center; padding-top: 100px; }
+        .hero-content { display: grid; grid-template-columns: 1fr 1.2fr; gap: 60px; align-items: center; }
+        .hero-text h1 { font-size: 3.8rem; line-height: 1.05; margin-bottom: 1.5rem; font-weight: 800; letter-spacing: -2px; }
 
         .showreel-container {
-            width: 100%; aspect-ratio: 16/9; background: var(--bg-card);
-            border-radius: 12px; border: 1px solid var(--glass-border);
-            overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            width: 100%; aspect-ratio: 16/9; background: #000;
+            border-radius: 16px; border: 1px solid var(--glass-border);
+            overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.6);
         }
         .showreel-container video { width: 100%; height: 100%; object-fit: cover; }
 
-        .section-title { font-size: 2rem; margin-bottom: 3rem; text-align: center; font-weight: 800; }
-        .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
-        .video-card { background: var(--bg-card); border: 1px solid var(--glass-border); border-radius: 12px; overflow: hidden; transition: 0.3s; }
-        .video-card:hover { transform: translateY(-5px); border-color: var(--accent-purple); box-shadow: 0 10px 30px rgba(168, 85, 247, 0.15); }
-        .video-card video { width: 100%; height: 220px; object-fit: cover; display: block; }
+        .section-title { font-size: 2.5rem; margin-bottom: 3.5rem; text-align: center; font-weight: 800; }
+        
+        .video-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
+            gap: 25px; 
+        }
 
-        .glass-panel { background: var(--bg-card); backdrop-filter: blur(10px); border: 1px solid var(--glass-border); padding: 2.5rem; border-radius: 16px; margin-bottom: 2rem; }
-        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
-        .feature-item { padding: 1.5rem; border-radius: 12px; background: rgba(255,255,255,0.02); border: 1px solid var(--glass-border); }
-        .feature-item h3 { color: var(--accent-blue); margin-bottom: 10px; font-size: 1.1rem; }
+        .video-card { 
+            background: var(--bg-card); 
+            border: 1px solid var(--glass-border); 
+            border-radius: 14px; 
+            overflow: hidden; 
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            position: relative;
+            min-height: 200px;
+        }
 
-        .alert-box { background: linear-gradient(45deg, rgba(168, 85, 247, 0.1), rgba(59, 130, 246, 0.1)); border-left: 4px solid var(--accent-purple); padding: 2rem; border-radius: 8px; margin: 40px 0; }
-        .tos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
-        .pricing-list, .tos-list { list-style: none; }
-        .pricing-list li, .tos-list li { margin-bottom: 15px; padding-left: 25px; position: relative; }
-        .pricing-list li::before, .tos-list li::before { content: "•"; color: var(--accent-purple); position: absolute; left: 0; font-weight: bold; }
+        .video-card:hover { 
+            transform: translateY(-8px); 
+            border-color: var(--accent-purple); 
+            box-shadow: 0 15px 40px rgba(168, 85, 247, 0.2); 
+        }
 
-        footer { border-top: 1px solid var(--glass-border); padding: 60px 0; text-align: center; }
-        .social-links { display: flex; justify-content: center; margin: 25px 0; }
-        .social-links a { color: var(--text-main); text-decoration: none; font-weight: 600; transition: 0.3s; display: flex; align-items: center; gap: 12px; background: rgba(168, 85, 247, 0.1); padding: 12px 24px; border-radius: 50px; border: 1px solid var(--accent-purple); }
-        .social-links a:hover { background: var(--accent-purple); color: white; box-shadow: var(--neon-glow); transform: translateY(-2px); }
+        .video-card video { 
+            width: 100%; 
+            height: 220px; 
+            object-fit: cover; 
+            display: block;
+            background: #111; /* fallback color while loading */
+        }
+
+        .glass-panel { 
+            background: var(--bg-card); 
+            backdrop-filter: blur(12px); 
+            border: 1px solid var(--glass-border); 
+            padding: 3rem; 
+            border-radius: 20px; 
+            margin-bottom: 2rem; 
+        }
+
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 25px; }
+        .feature-item { 
+            padding: 2rem; 
+            border-radius: 16px; 
+            background: rgba(255,255,255,0.03); 
+            border: 1px solid var(--glass-border); 
+            transition: 0.3s;
+        }
+        .feature-item:hover { border-color: var(--accent-blue); background: rgba(59, 130, 246, 0.05); }
+        .feature-item h3 { color: var(--accent-blue); margin-bottom: 12px; font-size: 1.2rem; }
+
+        .alert-box { 
+            background: linear-gradient(90deg, rgba(168, 85, 247, 0.15), rgba(59, 130, 246, 0.15)); 
+            border-left: 5px solid var(--accent-purple); 
+            padding: 2.5rem; 
+            border-radius: 12px; 
+            margin: 50px 0; 
+        }
+        
+        .tos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        .pricing-list li, .tos-list li { margin-bottom: 18px; padding-left: 28px; position: relative; list-style: none; }
+        .pricing-list li::before, .tos-list li::before { 
+            content: "→"; color: var(--accent-purple); position: absolute; left: 0; font-weight: bold; 
+        }
+
+        footer { border-top: 1px solid var(--glass-border); padding: 80px 0; text-align: center; margin-top: 40px; }
+        
+        .social-btn { 
+            color: var(--text-main); 
+            text-decoration: none; 
+            font-weight: 700; 
+            transition: 0.3s; 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 15px; 
+            background: rgba(168, 85, 247, 0.1); 
+            padding: 16px 32px; 
+            border-radius: 50px; 
+            border: 1px solid var(--accent-purple); 
+            margin: 20px 0;
+        }
+
+        .social-btn:hover { 
+            background: var(--accent-purple); 
+            box-shadow: 0 0 30px rgba(168, 85, 247, 0.5); 
+            transform: scale(1.05);
+        }
 
         @media (max-width: 768px) {
             .hero-content { grid-template-columns: 1fr; text-align: center; }
+            .hero-text h1 { font-size: 2.8rem; }
             .nav-links { display: none; }
             .tos-grid { grid-template-columns: 1fr; }
         }
@@ -121,7 +187,7 @@
                 <div class="nav-links">
                     <a href="#home">Home</a>
                     <a href="#portfolio">Portfolio</a>
-                    <a href="#pricing">Pricing & TOS</a>
+                    <a href="#pricing">Pricing</a>
                 </div>
                 <div class="badge">Commissions: Open</div>
             </nav>
@@ -132,13 +198,12 @@
         <div class="container">
             <div class="hero-content">
                 <div class="hero-text">
-                    <h1>UniTheVerse | Custom Rigging & Animation Commissions</h1>
-                    <p style="color: var(--text-dim); font-size: 1.1rem;">High-end skeletal solutions for unique Roblox creations.</p>
+                    <h1>UniTheVerse | Custom Rigging & Animation</h1>
+                    <p style="color: var(--text-dim); font-size: 1.2rem;">Expert skeletal systems and fluid motion for Roblox.</p>
                 </div>
                 <div class="showreel-container">
-                    <!-- I set this to video29.mp4 as your featured video -->
-                    <video autoplay loop muted playsinline>
-                        <source src="videos/video29.mp4" type="video/mp4">
+                    <video autoplay loop muted playsinline id="heroVideo">
+                        <source src="./videos/video29.mp4" type="video/mp4">
                     </video>
                 </div>
             </div>
@@ -148,90 +213,126 @@
     <section id="about">
         <div class="container">
             <div class="glass-panel">
-                <h2 style="margin-bottom: 20px;">Let’s Bring Your Game to Life.</h2>
-                <p>I’m Uni, a specialized model rigger and animator with over 3 years of daily, hands-on experience. I dedicate hours every single day to perfecting this craft. I focus entirely on custom rigs—handling complex skeleton structures, deformations, and fluid movements that make unique models feel alive.</p>
+                <h2 style="margin-bottom: 25px;">Let’s Bring Your Game to Life.</h2>
+                <p>I’m Uni, a specialized model rigger and animator with over 3 years of daily, hands-on experience. I dedicate hours every single day to perfecting this craft, turning unique creative concepts into dynamic, perfectly weighted, and polished assets. I focus entirely on custom rigs—handling complex skeleton structures, deformations, and fluid movements that make unique models feel alive. My workflow is fast, flexible, and tailored to your vision.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="features">
+        <div class="container">
+            <div class="features-grid">
+                <div class="feature-item">
+                    <h3>Custom Rigging</h3>
+                    <p>Expert setups for unique mechanical, organic, or humanoid rigs.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Fast Turnaround</h3>
+                    <p>Most commissions take a few hours to a few days. Deadline-friendly!</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Fluid Animation</h3>
+                    <p>Clean, high-quality motion tailored to your model's personality.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Flexible Payment</h3>
+                    <p>Open to USD or Robux (group funds/dev-product; taxes apply).</p>
+                </div>
             </div>
         </div>
     </section>
 
     <section id="portfolio">
         <div class="container">
-            <h2 class="section-title">Work Showcase</h2>
-            <div class="video-grid" id="video-gallery"></div>
+            <h2 class="section-title">Portfolio Gallery</h2>
+            <div class="video-grid" id="video-gallery">
+                <!-- Videos generate here -->
+            </div>
         </div>
     </section>
 
     <section id="pricing">
         <div class="container">
             <div class="alert-box">
-                <h3>⚠️ Client Alert</h3>
-                <p>Be specific about your custom rig needs, reference style, and asset list from the start!</p>
+                <h3 style="margin-bottom: 10px;">⚠️ PLEASE READ BEFORE MESSAGING</h3>
+                <p>To get an accurate quote, avoid generic messages like 'Hello, I need animations.' Be specific about your custom rig needs, reference style, and asset list from the start!</p>
             </div>
+
             <div class="tos-grid">
                 <div class="glass-panel">
                     <h2 style="margin-bottom: 20px; color: var(--accent-purple);">Terms of Service</h2>
                     <ul class="tos-list">
-                        <li><strong>Payment:</strong> 30%–50% upfront payment required.</li>
-                        <li><strong>Approval:</strong> Previews sent for feedback. Balance due before delivery.</li>
-                        <li><strong>Cancellations:</strong> Full refund if I cancel. Partial if you cancel.</li>
+                        <li><strong>Payment:</strong> 30%–50% upfront payment is required before I begin.</li>
+                        <li><strong>Approval:</strong> Previews sent for feedback. Remaining balance due before delivery.</li>
+                        <li><strong>Cancellations:</strong> 100% refund if I cancel. Completed work is non-refundable.</li>
                     </ul>
                 </div>
                 <div class="glass-panel">
                     <h2 style="margin-bottom: 20px; color: var(--accent-blue);">Pricing & Notes</h2>
                     <ul class="pricing-list">
-                        <li>Rates vary based on complexity—happy to work within budget!</li>
-                        <li>Progress updates are welcome—please avoid spamming.</li>
+                        <li>Rates vary based on complexity, but I am happy to work within budgets.</li>
+                        <li>Progress updates are welcome anytime—please avoid spamming.</li>
+                        <li>Rates may fluctuate based on current demand.</li>
                     </ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer id="contact">
+    <footer>
         <div class="container">
-            <div class="social-links">
-                <a href="https://discord.com/users/656280455028408328" target="_blank">Contact via Discord</a>
-            </div>
-            <p>© <span id="year"></span> UniTheVerse. All rights reserved.</p>
+            <h2>Start Your Project</h2>
+            <a href="https://discord.com/users/656280455028408328" class="social-btn" target="_blank">
+                Contact via Discord
+            </a>
+            <p style="max-width: 600px; margin: 20px auto; color: var(--text-dim);">DM me with your custom model files, animation requirements, and reference clips, and let’s build something awesome together!</p>
+            <p style="margin-top: 50px; font-size: 0.8rem; opacity: 0.5;">© <span id="year"></span> UniTheVerse. All rights reserved.</p>
         </div>
     </footer>
 
     <script>
-        // FILENAMES MUST MATCH YOUR GITHUB FOLDER EXACTLY
+        // List of videos from your folder
         const videoFiles = [
-            '2026-05-05 21-32-46.mp4', 
-            '2026-05-10 20-23-52.mp4', 
-            '2026-06-06 16-02-20.mp4',
-            'video29.mp4',
-            'video7.mp4',
-            'video8.mp4'
+            "2026-05-05 21-32-46.mp4",
+            "2026-05-10 20-23-52.mp4",
+            "2026-06-06 16-02-20.mp4",
+            "video29.mp4",
+            "video7.mp4",
+            "video8.mp4"
         ];
 
-        const galleryContainer = document.getElementById('video-gallery');
+        const gallery = document.getElementById('video-gallery');
 
-        function generateGallery() {
-            galleryContainer.innerHTML = '';
-            videoFiles.forEach(fileName => {
+        function initGallery() {
+            gallery.innerHTML = '';
+            
+            videoFiles.forEach(file => {
                 const card = document.createElement('div');
                 card.className = 'video-card';
+                
                 const video = document.createElement('video');
-                
-                // Encode the URI to handle the spaces in your filenames
-                video.src = `videos/${encodeURIComponent(fileName)}`;
-                
                 video.autoplay = true;
                 video.loop = true;
                 video.muted = true;
-                video.setAttribute('playsinline', '');
+                video.playsInline = true;
+                video.setAttribute('muted', ''); // Extra reinforcement for browsers
+                
+                // Using ./videos/ ensures it looks inside the local folder
+                // encodeURIComponent handles the spaces in your 2026-xx-xx filenames
+                video.src = `./videos/${encodeURIComponent(file)}`;
+                
+                // Debug log to check if paths are correct in console
+                console.log("Attempting to load:", video.src);
+
                 card.appendChild(video);
-                galleryContainer.appendChild(card);
+                gallery.appendChild(card);
             });
         }
 
-        window.addEventListener('DOMContentLoaded', () => {
-            generateGallery();
-            document.getElementById('year').textContent = new Date().getFullYear();
-        });
+        window.onload = () => {
+            initGallery();
+            document.getElementById('year').innerText = new Date().getFullYear();
+        };
     </script>
 </body>
 </html>
