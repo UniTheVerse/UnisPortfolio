@@ -30,7 +30,6 @@
             overflow-x: hidden;
         }
 
-        /* Animated Nebula Background */
         body::before {
             content: "";
             position: fixed;
@@ -70,9 +69,9 @@
             text-transform: uppercase; letter-spacing: 1.5px;
         }
 
-        .hero { min-height: 85vh; display: flex; align-items: center; padding-top: 100px; }
+        .hero { min-height: 80vh; display: flex; align-items: center; padding-top: 100px; }
         .hero-content { display: grid; grid-template-columns: 1fr 1.2fr; gap: 60px; align-items: center; }
-        .hero-text h1 { font-size: 3.8rem; line-height: 1.05; margin-bottom: 1.5rem; font-weight: 800; letter-spacing: -2px; }
+        .hero-text h1 { font-size: 3.5rem; line-height: 1.1; margin-bottom: 1.5rem; font-weight: 800; }
 
         .showreel-container {
             width: 100%; aspect-ratio: 16/9; background: #000;
@@ -94,15 +93,13 @@
             border: 1px solid var(--glass-border); 
             border-radius: 14px; 
             overflow: hidden; 
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-            position: relative;
-            min-height: 200px;
+            transition: 0.4s;
+            background: #111;
         }
 
         .video-card:hover { 
             transform: translateY(-8px); 
             border-color: var(--accent-purple); 
-            box-shadow: 0 15px 40px rgba(168, 85, 247, 0.2); 
         }
 
         .video-card video { 
@@ -110,7 +107,6 @@
             height: 220px; 
             object-fit: cover; 
             display: block;
-            background: #111; /* fallback color while loading */
         }
 
         .glass-panel { 
@@ -123,56 +119,26 @@
         }
 
         .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 25px; }
-        .feature-item { 
-            padding: 2rem; 
-            border-radius: 16px; 
-            background: rgba(255,255,255,0.03); 
-            border: 1px solid var(--glass-border); 
-            transition: 0.3s;
-        }
-        .feature-item:hover { border-color: var(--accent-blue); background: rgba(59, 130, 246, 0.05); }
+        .feature-item { padding: 2rem; border-radius: 16px; background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border); }
         .feature-item h3 { color: var(--accent-blue); margin-bottom: 12px; font-size: 1.2rem; }
 
         .alert-box { 
-            background: linear-gradient(90deg, rgba(168, 85, 247, 0.15), rgba(59, 130, 246, 0.15)); 
+            background: linear-gradient(90deg, rgba(168, 85, 247, 0.1, rgba(59, 130, 246, 0.1))); 
             border-left: 5px solid var(--accent-purple); 
-            padding: 2.5rem; 
-            border-radius: 12px; 
-            margin: 50px 0; 
+            padding: 2.5rem; border-radius: 12px; margin: 50px 0; 
         }
         
         .tos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
-        .pricing-list li, .tos-list li { margin-bottom: 18px; padding-left: 28px; position: relative; list-style: none; }
-        .pricing-list li::before, .tos-list li::before { 
-            content: "→"; color: var(--accent-purple); position: absolute; left: 0; font-weight: bold; 
-        }
-
-        footer { border-top: 1px solid var(--glass-border); padding: 80px 0; text-align: center; margin-top: 40px; }
+        footer { border-top: 1px solid var(--glass-border); padding: 80px 0; text-align: center; }
         
         .social-btn { 
-            color: var(--text-main); 
-            text-decoration: none; 
-            font-weight: 700; 
-            transition: 0.3s; 
-            display: inline-flex; 
-            align-items: center; 
-            gap: 15px; 
-            background: rgba(168, 85, 247, 0.1); 
-            padding: 16px 32px; 
-            border-radius: 50px; 
-            border: 1px solid var(--accent-purple); 
-            margin: 20px 0;
-        }
-
-        .social-btn:hover { 
-            background: var(--accent-purple); 
-            box-shadow: 0 0 30px rgba(168, 85, 247, 0.5); 
-            transform: scale(1.05);
+            color: var(--text-main); text-decoration: none; font-weight: 700; 
+            background: rgba(168, 85, 247, 0.1); padding: 16px 32px; 
+            border-radius: 50px; border: 1px solid var(--accent-purple); display: inline-block; margin: 20px 0;
         }
 
         @media (max-width: 768px) {
             .hero-content { grid-template-columns: 1fr; text-align: center; }
-            .hero-text h1 { font-size: 2.8rem; }
             .nav-links { display: none; }
             .tos-grid { grid-template-columns: 1fr; }
         }
@@ -202,8 +168,9 @@
                     <p style="color: var(--text-dim); font-size: 1.2rem;">Expert skeletal systems and fluid motion for Roblox.</p>
                 </div>
                 <div class="showreel-container">
-                    <video autoplay loop muted playsinline id="heroVideo">
-                        <source src="./videos/video29.mp4" type="video/mp4">
+                    <!-- Manually setting the featured video for maximum compatibility -->
+                    <video autoplay loop muted playsinline>
+                        <source src="videos/video29.mp4" type="video/mp4">
                     </video>
                 </div>
             </div>
@@ -214,30 +181,7 @@
         <div class="container">
             <div class="glass-panel">
                 <h2 style="margin-bottom: 25px;">Let’s Bring Your Game to Life.</h2>
-                <p>I’m Uni, a specialized model rigger and animator with over 3 years of daily, hands-on experience. I dedicate hours every single day to perfecting this craft, turning unique creative concepts into dynamic, perfectly weighted, and polished assets. I focus entirely on custom rigs—handling complex skeleton structures, deformations, and fluid movements that make unique models feel alive. My workflow is fast, flexible, and tailored to your vision.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="features">
-        <div class="container">
-            <div class="features-grid">
-                <div class="feature-item">
-                    <h3>Custom Rigging</h3>
-                    <p>Expert setups for unique mechanical, organic, or humanoid rigs.</p>
-                </div>
-                <div class="feature-item">
-                    <h3>Fast Turnaround</h3>
-                    <p>Most commissions take a few hours to a few days. Deadline-friendly!</p>
-                </div>
-                <div class="feature-item">
-                    <h3>Fluid Animation</h3>
-                    <p>Clean, high-quality motion tailored to your model's personality.</p>
-                </div>
-                <div class="feature-item">
-                    <h3>Flexible Payment</h3>
-                    <p>Open to USD or Robux (group funds/dev-product; taxes apply).</p>
-                </div>
+                <p>I’m Uni, a specialized model rigger and animator with over 3 years of daily, hands-on experience. I focus entirely on custom rigs—handling complex skeleton structures, deformations, and fluid movements that make unique models feel alive.</p>
             </div>
         </div>
     </section>
@@ -246,34 +190,30 @@
         <div class="container">
             <h2 class="section-title">Portfolio Gallery</h2>
             <div class="video-grid" id="video-gallery">
-                <!-- Videos generate here -->
+                <!-- Videos will load here -->
             </div>
         </div>
     </section>
 
-    <section id="pricing">
+    <section id="pricing" style="padding-bottom: 100px;">
         <div class="container">
             <div class="alert-box">
                 <h3 style="margin-bottom: 10px;">⚠️ PLEASE READ BEFORE MESSAGING</h3>
-                <p>To get an accurate quote, avoid generic messages like 'Hello, I need animations.' Be specific about your custom rig needs, reference style, and asset list from the start!</p>
+                <p>Be specific about your custom rig needs, reference style, and asset list from the start!</p>
             </div>
 
             <div class="tos-grid">
                 <div class="glass-panel">
                     <h2 style="margin-bottom: 20px; color: var(--accent-purple);">Terms of Service</h2>
-                    <ul class="tos-list">
-                        <li><strong>Payment:</strong> 30%–50% upfront payment is required before I begin.</li>
-                        <li><strong>Approval:</strong> Previews sent for feedback. Remaining balance due before delivery.</li>
-                        <li><strong>Cancellations:</strong> 100% refund if I cancel. Completed work is non-refundable.</li>
-                    </ul>
+                    <p>• 30%–50% upfront payment required.</p>
+                    <p>• Previews sent for feedback before final delivery.</p>
+                    <p>• Full refund if I cancel the project.</p>
                 </div>
                 <div class="glass-panel">
-                    <h2 style="margin-bottom: 20px; color: var(--accent-blue);">Pricing & Notes</h2>
-                    <ul class="pricing-list">
-                        <li>Rates vary based on complexity, but I am happy to work within budgets.</li>
-                        <li>Progress updates are welcome anytime—please avoid spamming.</li>
-                        <li>Rates may fluctuate based on current demand.</li>
-                    </ul>
+                    <h2 style="margin-bottom: 20px; color: var(--accent-blue);">Pricing</h2>
+                    <p>• Rates vary based on rig complexity.</p>
+                    <p>• Open to USD or Robux.</p>
+                    <p>• Fast delivery: usually a few hours to days.</p>
                 </div>
             </div>
         </div>
@@ -281,17 +221,13 @@
 
     <footer>
         <div class="container">
-            <h2>Start Your Project</h2>
-            <a href="https://discord.com/users/656280455028408328" class="social-btn" target="_blank">
-                Contact via Discord
-            </a>
-            <p style="max-width: 600px; margin: 20px auto; color: var(--text-dim);">DM me with your custom model files, animation requirements, and reference clips, and let’s build something awesome together!</p>
-            <p style="margin-top: 50px; font-size: 0.8rem; opacity: 0.5;">© <span id="year"></span> UniTheVerse. All rights reserved.</p>
+            <a href="https://discord.com/users/656280455028408328" class="social-btn" target="_blank">Contact via Discord</a>
+            <p style="margin-top: 30px; opacity: 0.5;">© <span id="year"></span> UniTheVerse</p>
         </div>
     </footer>
 
     <script>
-        // List of videos from your folder
+        // Filenames from your screenshot
         const videoFiles = [
             "2026-05-05 21-32-46.mp4",
             "2026-05-10 20-23-52.mp4",
@@ -303,7 +239,7 @@
 
         const gallery = document.getElementById('video-gallery');
 
-        function initGallery() {
+        function loadVideos() {
             gallery.innerHTML = '';
             
             videoFiles.forEach(file => {
@@ -315,14 +251,11 @@
                 video.loop = true;
                 video.muted = true;
                 video.playsInline = true;
-                video.setAttribute('muted', ''); // Extra reinforcement for browsers
                 
-                // Using ./videos/ ensures it looks inside the local folder
-                // encodeURIComponent handles the spaces in your 2026-xx-xx filenames
-                video.src = `./videos/${encodeURIComponent(file)}`;
-                
-                // Debug log to check if paths are correct in console
-                console.log("Attempting to load:", video.src);
+                // CRITICAL FIX: GitHub Pages needs the folder name relative to the current page
+                // We use "videos/" (no slash at start) to look inside the current repo folder
+                const videoPath = "videos/" + encodeURIComponent(file);
+                video.src = videoPath;
 
                 card.appendChild(video);
                 gallery.appendChild(card);
@@ -330,7 +263,7 @@
         }
 
         window.onload = () => {
-            initGallery();
+            loadVideos();
             document.getElementById('year').innerText = new Date().getFullYear();
         };
     </script>
