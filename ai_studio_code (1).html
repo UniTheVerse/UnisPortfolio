@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UniTheVerse | Custom Rigging & Animation</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- CSS VARIABLES & THEME --- */
+        :root {
+            --bg-dark: #050507;
+            --bg-card: rgba(20, 20, 25, 0.6);
+            --accent-purple: #a855f7;
+            --accent-blue: #3b82f6;
+            --text-main: #e2e8f0;
+            --text-dim: #94a3b8;
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --neon-glow: 0 0 15px rgba(168, 85, 247, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Background Nebula Effect */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(168, 85, 247, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(59, 130, 246, 0.05) 0%, transparent 40%);
+            z-index: -1;
+        }
+
+        /* --- LAYOUT UTILS --- */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        /* --- HEADER & NAV --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(5, 5, 7, 0.8);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.2rem;
+            letter-spacing: -0.5px;
+            background: linear-gradient(to right, var(--accent-purple), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dim);
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-purple);
+        }
+
+        .badge {
+            background: rgba(168, 85, 247, 0.15);
+            color: var(--accent-purple);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border: 1px solid var(--accent-purple);
+            box-shadow: var(--neon-glow);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            padding-top: 100px;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+        }
+
+        .showreel-container {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid var(--glass-border);
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .showreel-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* --- PORTFOLIO GALLERY --- */
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            font-weight: 800;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .video-card {
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-purple);
+            box-shadow: 0 10px 30px rgba(168, 85, 247, 0.15);
+        }
+
+        .video-card video {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* --- GLASS CARDS & SECTIONS --- */
+        .glass-panel {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            padding: 2.5rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .feature-item {
+            padding: 1.5rem;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--glass-border);
+        }
+
+        .feature-item h3 {
+            color: var(--accent-blue);
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        /* Alert Box */
+        .alert-box {
+            background: linear-gradient(45deg, rgba(168, 85, 247, 0.1), rgba(59, 130, 246, 0.1));
+            border-left: 4px solid var(--accent-purple);
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 40px 0;
+        }
+
+        .alert-box h3 {
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        /* --- PRICING & TOS --- */
+        .tos-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .pricing-list, .tos-list {
+            list-style: none;
+        }
+
+        .pricing-list li, .tos-list li {
+            margin-bottom: 15px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .pricing-list li::before, .tos-list li::before {
+            content: "•";
+            color: var(--accent-purple);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            border-top: 1px solid var(--glass-border);
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            margin: 25px 0;
+        }
+
+        .social-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(168, 85, 247, 0.1);
+            padding: 12px 24px;
+            border-radius: 50px;
+            border: 1px solid var(--accent-purple);
+        }
+
+        .social-links a:hover {
+            background: var(--accent-purple);
+            color: white;
+            box-shadow: var(--neon-glow);
+            transform: translateY(-2px);
+        }
+
+        .footer-cta {
+            max-width: 600px;
+            margin: 0 auto;
+            color: var(--text-dim);
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        /* --- MOBILE RESPONSIVENESS --- */
+        @media (max-width: 768px) {
+            .hero-content { grid-template-columns: 1fr; text-align: center; }
+            .hero-text h1 { font-size: 2.5rem; }
+            .nav-links { display: none; }
+            .tos-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">UNITHEVERSE</div>
+                <div class="nav-links">
+                    <a href="#home">Home</a>
+                    <a href="#portfolio">Portfolio</a>
+                    <a href="#pricing">Pricing & TOS</a>
+                    <a href="#contact">Contact</a>
+                </div>
+                <div class="badge">Commissions: Open</div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>UniTheVerse | Custom Rigging & Animation Commissions</h1>
+                    <p style="color: var(--text-dim); font-size: 1.1rem;">High-end skeletal solutions for unique Roblox creations.</p>
+                </div>
+                <div class="showreel-container">
+                    <video autoplay loop muted playsinline>
+                        <source src="videos/showreel.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about">
+        <div class="container">
+            <div class="glass-panel">
+                <h2 style="margin-bottom: 20px;">Let’s Bring Your Game to Life.</h2>
+                <p>I’m Uni, a specialized model rigger and animator with over 3 years of daily, hands-on experience. I dedicate hours every single day to perfecting this craft, turning unique creative concepts into dynamic, perfectly weighted, and polished assets. I focus entirely on custom rigs—handling complex skeleton structures, deformations, and fluid movements that make unique models feel alive. My workflow is fast, flexible, and tailored to your vision.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES SECTION -->
+    <section id="features">
+        <div class="container">
+            <div class="features-grid">
+                <div class="feature-item">
+                    <h3>Custom Rigging & Animation</h3>
+                    <p>Expert setups and fluid motion for unique mechanical, organic, or humanoid rigs.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Fast Turnaround</h3>
+                    <p>Most commissions take a few hours to a few days. I am highly deadline-friendly!</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Active Communication</h3>
+                    <p>Constant updates and regular progress video previews.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Flexible Payment</h3>
+                    <p>Open to USD or Robux (group funds/dev-product; taxes apply).</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PORTFOLIO SECTION -->
+    <section id="portfolio">
+        <div class="container">
+            <h2 class="section-title">Work Showcase</h2>
+            <div class="video-grid" id="video-gallery">
+                <!-- JavaScript populates this grid -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ALERT & PRICING SECTION -->
+    <section id="pricing">
+        <div class="container">
+            <div class="alert-box">
+                <h3>⚠️ Client Alert</h3>
+                <p>Please read fully before messaging. To get an accurate quote, avoid generic messages like 'Hello, I need animations.' Be specific about your custom rig needs, reference style, and asset list from the start!</p>
+            </div>
+
+            <div class="tos-grid">
+                <div class="glass-panel">
+                    <h2 style="margin-bottom: 20px; color: var(--accent-purple);">Terms of Service</h2>
+                    <ul class="tos-list">
+                        <li><strong>Payment:</strong> A 30%–50% upfront payment is required before I begin.</li>
+                        <li><strong>Approval:</strong> I'll send video previews for feedback. Once approved, the remaining balance is due before final file delivery.</li>
+                        <li><strong>Cancellations:</strong> If I cancel, you get a 100% refund. If you cancel, the refund depends on how much work has been completed.</li>
+                    </ul>
+                </div>
+                <div class="glass-panel">
+                    <h2 style="margin-bottom: 20px; color: var(--accent-blue);">Pricing & Notes</h2>
+                    <ul class="pricing-list">
+                        <li><strong>Pricing:</strong> Rates vary based on the complexity of the custom rig or animation—but I’m happy to work within your budget when possible! Highly advanced or high-detail work requires custom pricing.</li>
+                        <li>Progress updates are welcome anytime—just please keep it respectful and avoid spamming.</li>
+                        <li>Rates may fluctuate based on current demand or special offers.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT FOOTER -->
+    <footer id="contact">
+        <div class="container">
+            <h2>Ready to start?</h2>
+            <div class="social-links">
+                <a href="https://discord.com/users/656280455028408328" target="_blank">
+                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 16 16"><path d="M13.545 2.907a13.227 13.227 0 0 0-3.257-1.011.05.05 0 0 0-.052.025c-.141.25-.297.577-.406.833a12.19 12.19 0 0 0-3.658 0 8.258 8.258 0 0 0-.412-.833.051.051 0 0 0-.052-.025c-1.125.194-2.22.534-3.257 1.011a.041.041 0 0 0-.021.018C.356 6.024-.213 9.047.066 12.032c.001.014.01.028.021.037a13.276 13.276 0 0 0 3.995 2.02.05.05 0 0 0 .056-.019c.308-.42.582-.863.818-1.329a.05.05 0 0 0-.01-.059.051.051 0 0 0-.018-.011 8.875 8.875 0 0 1-1.248-.595.05.05 0 0 1-.02-.066.051.051 0 0 1 .015-.019c.084-.063.168-.129.248-.195a.05.05 0 0 1 .051-.007c2.619 1.196 5.454 1.196 8.041 0a.052.052 0 0 1 .053.007c.08.066.164.132.248.195a.051.051 0 0 1-.004.085 8.254 8.254 0 0 1-1.248.595.05.05 0 0 0-.023.07c.24.463.513.906.818 1.329a.05.05 0 0 0 .056.019 13.235 13.235 0 0 0 4.001-2.02.049.049 0 0 0 .021-.037c.334-3.451-.559-6.449-2.366-9.106a.034.034 0 0 0-.02-.019Zm-8.198 7.307c-.789 0-1.438-.724-1.438-1.612 0-.889.637-1.613 1.438-1.613.807 0 1.45.73 1.438 1.613 0 .888-.631 1.612-1.438 1.612Zm5.316 0c-.788 0-1.438-.724-1.438-1.612 0-.889.637-1.613 1.438-1.613.807 0 1.451.73 1.438 1.613 0 .888-.631 1.612-1.438 1.612Z"/></svg>
+                    Contact via Discord
+                </a>
+            </div>
+            <p class="footer-cta">DM me with your custom model files, animation requirements, and reference clips, and let’s build something awesome together!</p>
+            <p style="margin-top: 40px; font-size: 0.7rem; color: #444;">© <span id="year"></span> UniTheVerse. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        /* --- 2. CORE FEATURE: NO-CONFIGURATION GALLERY --- */
+        
+        // EDIT THIS ARRAY: Add your .mp4 filenames here.
+        // Files should be located in a folder named 'videos'
+        const videoFiles = [
+            'example1.mp4', 
+            'example2.mp4', 
+            'example3.mp4'
+        ];
+
+        const galleryContainer = document.getElementById('video-gallery');
+
+        function generateGallery() {
+            if (videoFiles.length === 0) {
+                galleryContainer.innerHTML = '<p style="text-align:center; grid-column: 1/-1; color: var(--text-dim);">No videos found. Add filenames to the script array.</p>';
+                return;
+            }
+
+            galleryContainer.innerHTML = '';
+            videoFiles.forEach(fileName => {
+                const card = document.createElement('div');
+                card.className = 'video-card';
+                const video = document.createElement('video');
+                video.src = `videos/${fileName}`;
+                video.autoplay = true;
+                video.loop = true;
+                video.muted = true;
+                video.setAttribute('playsinline', '');
+                card.appendChild(video);
+                galleryContainer.appendChild(card);
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            generateGallery();
+            document.getElementById('year').textContent = new Date().getFullYear();
+        });
+    </script>
+</body>
+</html>
